@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>Registration Form</title>
+<style>
+body {
+font-family: Arial;
+background: pink;
+}
+form {
+background: white;
+width: 350px;
+margin: 50px auto;
+padding: 20px;
+border: 1px solid gray;
+border-radius: 10px;
+}
+h2 {
+color: #7041A6;
+text-align: center;
+}
+input {
+width: 95%;
+padding: 7px;
+margin: 5px 0;
+}
+.error {
+color: red;
+font-size: 12px;
+}
+button {
+background: #7041A6;
+color: white;
+padding: 8px;
+border: none;
+width: 100%;
+}
+</style>
+</head>
+<body>
+<form onsubmit="return validateForm()">
+<h2>Registration Form</h2>
+Name:<br>
+<input type="text" id="name" onblur="checkName()">
+<span class="error" id="nameError"></span><br>
+Email:<br>
+<input type="text" id="email" onblur="checkEmail()">
+<span class="error" id="emailError"></span><br>
+Date of Birth:<br>
+<input type="date" id="dob" onblur="checkDate()">
+<span class="error" id="dateError"></span><br>
+Password:<br>
+<input type="password" id="password" onblur="checkPassword()">
+<span class="error" id="passwordError"></span><br>
+Confirm Password:<br>
+<input type="password" id="confirm" onblur="checkConfirm()">
+<span class="error" id="confirmError"></span><br><br>
+<button type="submit">Register</button>
+</form>
+<script>
+function checkName() {
+let name = document.getElementById("name").value;
+if (name.trim() == "") {
+document.getElementById("nameError").innerHTML="Name is required";
+return false;
+}
+document.getElementById("nameError").innerHTML = "";
+return true;
+}
+function checkEmail() {
+let email = document.getElementById("email").value;
+let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!pattern.test(email)) {
+document.getElementById("emailError").innerHTML="Enter valid email";
+return false;
+}
+document.getElementById("emailError").innerHTML = "";
+return true;
+}
+function checkDate() {
+let dob = document.getElementById("dob").value;
+if (dob == "") {
+document.getElementById("dateError").innerHTML="Date of birth is required";
+return false;
+}
+if (dob > new Date().toISOString().split("T")[0]) {
+document.getElementById("dateError").innerHTML="Date cannot be in the future";
+return false;
+}
+document.getElementById("dateError").innerHTML = "";
+return true;
+}
+function checkPassword() {
+let password = document.getElementById("password").value;
+if (password.length < 6) {
+document.getElementById("passwordError").innerHTML="Minimum 6 characters required";
+return false;
+}
+document.getElementById("passwordError").innerHTML = "";
+return true;
+}
+function checkConfirm() {
+let password = document.getElementById("password").value;
+let confirm = document.getElementById("confirm").value;
+if (confirm == "" || confirm != password) {
+document.getElementById("confirmError").innerHTML="Password does not match";
+return false;
+}
+document.getElementById("confirmError").innerHTML = "";
+return true;
+}
+function validateForm() {
+let a = checkName();
+let b = checkEmail();
+let c = checkDate();
+let d = checkPassword();
+let e = checkConfirm();
+if (a && b && c && d && e) {
+alert("Registration Successful!");
+return true;
+}
+return false;
+}
+</script>
+</body>
+</html>
